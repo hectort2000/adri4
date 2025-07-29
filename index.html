@@ -260,32 +260,31 @@ src="https://www.facebook.com/tr?id=2052496638610522&ev=PageView&noscript=1"
       setInterval(mostrarNotificacion, 2500);
 
       // Rotación secuencial de WhatsApp
-      const numerosWhatsapp = [
-        "5493513806851",
-        "5493562673960",
-        "5491158518867",
-        "5493512518920",
-      ];
+      <a id="whatsapp-btn" href="#">¡Chatear por WhatsApp!</a>
+<script>
+  const nums = [
+    "5493513806851",
+    "5493562673960",
+    "5491158518867",
+    "5493512518920",
+  ];
+  const msg = "Hola, quisiera un usuario y quiero cargar para tener mi bono de BIENVENIDA SOLO POR HOY";
 
-      const mensaje = "Hola, quisiera un usuario y quiero cargar para tener mi bono de BIENVENIDA SOLO POR HOY";
+  function idxActual() {
+    const i = localStorage.getItem('wa_index');
+    return i !== null ? parseInt(i, 10) : 0;
+  }
+  function guardaSiguiente(i) {
+    localStorage.setItem('wa_index', (i + 1) % nums.length);
+  }
 
-      function obtenerIndiceActual() {
-        let index = localStorage.getItem('wa_index');
-        return index ? parseInt(index) : 0;
-      }
-
-      function guardarSiguienteIndice(index) {
-        const siguiente = (index + 1) % numerosWhatsapp.length;
-        localStorage.setItem('wa_index', siguiente);
-      }
-
-      document.getElementById('whatsapp-btn').addEventListener('click', function (e) {
-        const index = obtenerIndiceActual();
-        const numero = numerosWhatsapp[index];
-        const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
-        this.href = url;
-        guardarSiguienteIndice(index);
-      });
+  document.addEventListener('DOMContentLoaded', () => {
+    const i = idxActual();
+    const numero = nums[i];
+    const link = document.getElementById('whatsapp-btn');
+    link.href = `https://wa.me/${numero}?text=${encodeURIComponent(msg)}`;
+    guardaSiguiente(i);
+  });
     </script>
   </body>
 </html>
